@@ -1,0 +1,83 @@
+*{
+    background-color: black;
+}
+.cell{
+    width: 100px;
+    height: 100px;
+    border: 5px solid turquoise;
+    box-shadow: 0 0 0 5px burlywood;
+    line-height: 100px;
+    font-size: 75px;
+    background-color: black;
+}
+.cell:hover{
+    background-color: turquoise;
+    cursor:grab;
+    
+}
+#gameBoard{
+    font-family: "", cursive;
+    text-align: center;
+    
+}
+#cellContainer{
+    display: grid;
+    grid-template-columns: repeat(3,auto);
+    width: 300px;
+    margin: auto;
+    color: burlywood;
+}
+h1{
+    
+    text-decoration: underline burlywood;
+    font-size: 60px;
+    color: turquoise;
+}
+#restartBttn{
+    color: red;
+    background-color: burlywood;
+}
+#restartBttn:hover{
+    background-color: turquoise;
+    cursor:grab;
+}
+input{
+    
+    background-color: burlywood;
+    border: 2px solid turquoise;
+    border-radius: 8px;
+    margin: 40px;
+    height: 60px;
+    font-size: 25px;
+    font-weight: bold;
+    color: aqua;
+    margin-left: 100px;
+    
+}
+#player2{
+   
+    background-color: burlywood;
+    border: 2px solid turquoise;
+    border-radius: 8px;
+    margin: 40px;
+    height: 60px;
+    font-size: 25px;
+    font-weight: bold;
+    color: aqua;
+    margin-left: 600px;
+    position: absolute;
+    
+}
+#turnStatus{
+    color: turquoise;
+    font-size: 40px;
+}
+p{
+    word-spacing: 850px;
+    color: burlywood;
+    margin-left: 200px;
+    margin-bottom: 0%;
+    font-size: 50px;
+    
+}
+

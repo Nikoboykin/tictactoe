@@ -1,18 +1,30 @@
 const cells = document.querySelectorAll(".cell");
 const turnStatus = document.querySelector("#turnStatus");
 const restartBttn = document.querySelector("#restartBttn");
-const player1 = document.getElementById("player1");
-const player2 = document.getElementById("player2"); 
 const players = [player1, player2];
 
-function getPlayerName(){
-}
-player1.addEventListener = ("change", (event) => {
-    // let player1Name = player1;
-    player1.innerText = event.target.value;
-    console.log(player1.innerText);
 
-})
+// const player1 = document.getElementById("player1");
+// const player2 = document.getElementById("player2"); 
+// const playerSymbols = ["X", "O"];
+
+
+// function getPlayerName(){
+// }
+// player1.addEventListener = ("change", (event) => {
+//     // let player1Name = player1;
+//     player1.innerText = event.target.value;
+//     console.log(player1.innerText);
+
+// })
+
+
+const savePlayer = () =>{
+    const player1 = document.getElementById("player1").value;
+    const player2 = document.getElementById("player2").value;
+    console.log("player1" + player1);
+    console.log("player2" + player2);
+}
 
 const winConditions = [
     
@@ -27,14 +39,16 @@ const winConditions = [
 ];
 let options = ["","","","","","","","",""];
 let startPlayer = players[getRandomInt(2)];
+// let startPlayerSymbol = playerSymbols[getRandomInt(2)];
 let currentPlayer = "X";
 let running = false;
 console.dir(startPlayer);
 
-
 initializeGame();
 
 function initializeGame(){
+
+    
     
 
     cells.forEach(cell => cell.addEventListener("click",cellClicked));
@@ -43,12 +57,12 @@ function initializeGame(){
 
     turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
     running = true;
-    getPlayerName();
+    // getPlayerName();
 }
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * max);
   }
-
 function cellClicked(){
     let cellIdx = this.getAttribute("cellIdx");
 
@@ -63,6 +77,7 @@ function updateCell(cell, idx){
     cell.textContent = currentPlayer;
 }
 function switchPlayer(){
+    
     currentPlayer = (currentPlayer == "X")? "O": "X";
     turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
 }

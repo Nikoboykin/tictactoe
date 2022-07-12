@@ -5,15 +5,17 @@ const players = [player1, player2];
 let options = ["", "", "", "", "", "", "", "", ""];
 let running = false;
 const randomInt = getRandomStartingPlayer(2)
-let currentPlayer = randomInt == 0 ? 'X' : 'O'
+let currentPlayer;
+let isX = "X";
 initializeGame();
-
 
 const savePlayer = () =>{
     const player1 = document.getElementById("player1").value;
     const player2 = document.getElementById("player2").value;
     console.log("player1" + player1);
     console.log("player2" + player2);
+     currentPlayer = randomInt == 0 ? players[0].value : players[1].value;
+     turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
 }
 
 const winConditions = [
@@ -31,7 +33,14 @@ const winConditions = [
 function initializeGame(){
     cells.forEach(cell => cell.addEventListener("click", cellClicked));
     restartBttn.addEventListener("click", restartGame);
-    turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
+    if (!currentPlayer){
+        turnStatus.textContent = (`Enter player names!`);
+
+    }else{
+        turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
+
+    }
+
     running = true;
 }
 
@@ -39,13 +48,17 @@ function getRandomStartingPlayer(max) {
     return Math.floor(Math.random() * max);
   }
 
+  let switchInt = randomInt;
 function switchPlayer() {
-    if (currentPlayer == 'X'){
-        currentPlayer = 'O'
-    } else [
-        currentPlayer = 'X'
-    ]
-
+    if (isX === 'X'){
+        isX = 'O'
+        switchInt = Math.abs(switchInt -1)
+        currentPlayer = players[switchInt].value
+    } else {
+        isX = 'X'
+        switchInt = Math.abs(switchInt -1)
+        currentPlayer = players[switchInt].value
+    }
     turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
 }
 
@@ -60,8 +73,8 @@ function cellClicked() {
 }
 
 function updateCell(cell, idx) {
-    options[idx] = currentPlayer;
-    cell.textContent = currentPlayer;
+    options[idx] = isX;
+    cell.textContent = isX;
 }
 
 function checkForWinner() {

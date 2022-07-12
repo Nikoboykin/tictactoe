@@ -2,21 +2,11 @@ const cells = document.querySelectorAll(".cell");
 const turnStatus = document.querySelector("#turnStatus");
 const restartBttn = document.querySelector("#restartBttn");
 const players = [player1, player2];
-
-
-// const player1 = document.getElementById("player1");
-// const player2 = document.getElementById("player2"); 
-// const playerSymbols = ["X", "O"];
-
-
-// function getPlayerName(){
-// }
-// player1.addEventListener = ("change", (event) => {
-//     // let player1Name = player1;
-//     player1.innerText = event.target.value;
-//     console.log(player1.innerText);
-
-// })
+let options = ["", "", "", "", "", "", "", "", ""];
+let running = false;
+const randomInt = getRandomStartingPlayer(2)
+let currentPlayer = randomInt == 0 ? 'X' : 'O'
+initializeGame();
 
 
 const savePlayer = () =>{
@@ -35,56 +25,49 @@ const winConditions = [
     [1, 4, 7],
     [2, 5, 8],
     [0, 4, 8],
-    [2, 4, 6] 
+    [2, 4, 6]
 ];
-let options = ["","","","","","","","",""];
-let startPlayer = players[getRandomInt(2)];
-// let startPlayerSymbol = playerSymbols[getRandomInt(2)];
-let currentPlayer = "X";
-let running = false;
-console.dir(startPlayer);
-
-initializeGame();
 
 function initializeGame(){
-
-    
-    
-
-    cells.forEach(cell => cell.addEventListener("click",cellClicked));
-
-    restartBttn.addEventListener("click",restartGame);
-
+    cells.forEach(cell => cell.addEventListener("click", cellClicked));
+    restartBttn.addEventListener("click", restartGame);
     turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
     running = true;
-    // getPlayerName();
 }
 
-function getRandomInt(max) {
+function getRandomStartingPlayer(max) {
     return Math.floor(Math.random() * max);
   }
-function cellClicked(){
+
+function switchPlayer() {
+    if (currentPlayer == 'X'){
+        currentPlayer = 'O'
+    } else [
+        currentPlayer = 'X'
+    ]
+
+    turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
+}
+
+function cellClicked() {
     let cellIdx = this.getAttribute("cellIdx");
 
-    if(options[cellIdx] != "" || !running){
+    if (options[cellIdx] != "" || !running) {
         return;
     }
     updateCell(this, cellIdx);
     checkForWinner();
 }
-function updateCell(cell, idx){
+
+function updateCell(cell, idx) {
     options[idx] = currentPlayer;
     cell.textContent = currentPlayer;
 }
-function switchPlayer(){
-    
-    currentPlayer = (currentPlayer == "X")? "O": "X";
-    turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
-}
-function checkForWinner(){
-    let roundWon = false; 
 
-    for(let i = 0; i < winConditions.length; i++){
+function checkForWinner() {
+    let roundWon = false;
+
+    for (let i = 0; i < winConditions.length; i++) {
         let condition = winConditions[i];
         let cellA = options[condition[0]];
         let cellB = options[condition[1]];
@@ -93,17 +76,17 @@ function checkForWinner(){
         if(cellA == "" || cellB == "" || cellC == ""){
             continue;
         }
-        if(cellA == cellB && cellB == cellC){
+        if(cellA == cellB && cellB == cellC) {
             roundWon = true;
             break;
         }
     }
 
-    if(roundWon){
+    if(roundWon) {
         turnStatus.textContent = (`${currentPlayer} Wins!`);
         running = false;
     }
-    else if(!options.includes("")){
+    else if(!options.includes("")) {
         turnStatus.textContent = 'Wash!';
         running = false;
     }
@@ -111,8 +94,8 @@ function checkForWinner(){
         switchPlayer();
     }
 }
-function restartGame(){
-    currentPlayer = "X"
+function restartGame() {
+    switchPlayer()
     options = ["", "", "", "", "", "", "", "", ""];
     turnStatus.textContent = (`${currentPlayer} Choose Your Space!`);
     cells.forEach(cell => cell.textContent = "");
